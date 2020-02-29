@@ -24,6 +24,7 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 [Git](https://git-scm.com/)  
 [visual-paradigm](https://www.visual-paradigm.com/cn/)  
 [zico](http://ico.z01.com/)  
+[flyway](https://flywaydb.org/getstarted/firststeps/maven)
 
 ##开发日志
 + 2020/2/14安装IDEA、Maven、Bootstrap4、Git。
