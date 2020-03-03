@@ -42,7 +42,7 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 
 + 2020/3/2 添加问题发布模态框和登录模态框，提交服务层出现问题。
 
-+ 20203/3 添加Lombok支持，添加头像脚本。
++ 20203/3 添加Lombok支持，添加头像脚本。完成问题发布功能。
 
 ##脚本
 + git查看、添加至暂存、提交到本地仓库、上传到远端命令

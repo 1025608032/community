@@ -21,10 +21,11 @@ public class IndexController {
     private QuestionMapper questionMapper;
     @Autowired
     private UserMapper userMapper;
+
     @GetMapping("/")
     public String index(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        if (null != cookies && cookies.length!=0)
+        if (null != cookies && cookies.length != 0)
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
@@ -35,16 +36,32 @@ public class IndexController {
                     break;
                 }
             }
-            return "index";
+        return "index";
     }
 
-    @PostMapping("/")
+    @PostMapping("/index")
     public String doQuestionPublish(
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
             HttpServletRequest request,
             Model model) {
+        model.addAttribute("title", title);
+        model.addAttribute("description", description);
+        model.addAttribute("tag", tag);
+
+        if (title == null || title == "") {
+            model.addAttribute("error1", "标题不能为空");
+            return "index";
+        }
+        if (description == null || description == "") {
+            model.addAttribute("error1", "问题补充不能为空");
+            return "index";
+        }
+        if (tag == null || tag == "") {
+            model.addAttribute("error1", "标签不能为空");
+            return "index";
+        }
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
