@@ -24,7 +24,8 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 [Git](https://git-scm.com/)  
 [visual-paradigm](https://www.visual-paradigm.com/cn/)  
 [zico](http://ico.z01.com/)  
-[flyway](https://flywaydb.org/getstarted/firststeps/maven)
+[flyway](https://flywaydb.org/getstarted/firststeps/maven)  
+[lombok](https://www.projectlombok.org/)
 
 ##开发日志
 + 2020/2/14安装IDEA、Maven、Bootstrap4、Git。
@@ -39,12 +40,16 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 
 + 2020/2/29 添加flyway migration，管理sql脚本。  
 
++ 2020/3/2 添加问题发布模态框和登录模态框，提交服务层出现问题。
+
++ 20203/3 添加Lombok支持，添加头像脚本。
+
 ##脚本
 + git查看、添加至暂存、提交到本地仓库、上传到远端命令
 ```shell script
 git status
 git add .
-git commit - m "本次操作内容简介"
+git commit -m "本次操作内容简介"
 git push
 ```
 + flyway迁移数据库命令
