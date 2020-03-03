@@ -36,3 +36,20 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 + 2020/2/22 编写导航栏，使用Github App实现第三方登录功能，用session记录当前登录态。
 
 + 2020/2/23 嵌入H2数据库，实现登录态。
+
++ 2020/2/29 添加flyway migration，管理sql脚本。  
+
+##脚本
++ git查看、添加至暂存、提交到本地仓库、上传到远端命令
+```shell script
+git status
+git add .
+git commit - m "本次操作内容简介"
+git push
+```
++ flyway迁移数据库命令
+```shell script
+mvn flyway:migrate  
+```
+
+

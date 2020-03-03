@@ -26,12 +26,12 @@ public class AuthorController {
     private String clientSecret;
     @Value("${github.redirect_uri}")
     private String redirectUri;
-    @Autowired(required = false)
+    @Autowired
     private UserMapper userMapper;
     @GetMapping("/login")
     public String login(@RequestParam(name="code") String code,
                         @RequestParam(name="state") String state,
-                        HttpServletResponse response ){
+                        HttpServletResponse response){
         AccesstokenDTO accesstokenDTO = new AccesstokenDTO();
         accesstokenDTO.setClient_id(clientID);
         accesstokenDTO.setClient_secret(clientSecret);
@@ -40,9 +40,9 @@ public class AuthorController {
         accesstokenDTO.setState(state);
         String accessToken = githubProvider.getAccessToken(accesstokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
-        //System.out.println(githubUser.getId());
-        //System.out.println(githubUser.getName());
-        if(githubUser != null){
+        System.out.println(githubUser.getId());
+        System.out.println(githubUser.getName());
+        if(githubUser != null && githubUser.getId()!=0){
             //登录成功，写cookie和session
             User user = new User();
             String token=UUID.randomUUID().toString();
