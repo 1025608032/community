@@ -1,9 +1,11 @@
 package com.salon.community.controller;
 
+import com.salon.community.dto.PaginationDTO;
 import com.salon.community.mapper.QuestionMapper;
 import com.salon.community.mapper.UserMapper;
 import com.salon.community.model.Question;
 import com.salon.community.model.User;
+import com.salon.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +17,22 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class IndexController {
-    @Autowired
-    private QuestionMapper questionMapper;
+public class AskController {
+
     @Autowired
     private UserMapper userMapper;
 
-    @GetMapping("/index")
-    public String index(HttpServletRequest request) {
+    @Autowired
+    private QuestionMapper questionMapper;
+
+    @Autowired
+    private QuestionService questionService;
+
+    @GetMapping("/ask")
+    public String ask(HttpServletRequest request,
+                      Model model,
+                      @RequestParam(name = "page", defaultValue = "1") Integer page,
+                      @RequestParam(name = "size", defaultValue = "5") Integer size) {
         Cookie[] cookies = request.getCookies();
         if (null != cookies && cookies.length != 0)
             for (Cookie cookie : cookies) {
@@ -35,15 +45,20 @@ public class IndexController {
                     break;
                 }
             }
-        return "index";
+        PaginationDTO pagination = questionService.list(page, size);
+        model.addAttribute("pagination", pagination);
+        return "ask";
     }
 
-    @PostMapping("/index")
+    @PostMapping("/ask")
     public String doQuestionPublish(
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
             HttpServletRequest request,
+
+
+
             Model model) {
         model.addAttribute("title", title);
         model.addAttribute("description", description);
@@ -51,21 +66,21 @@ public class IndexController {
 
         if (title == null || title == "") {
             model.addAttribute("error1", "标题不能为空");
-            return "index";
+            return "ask";
         }
         if (description == null || description == "") {
             model.addAttribute("error1", "问题补充不能为空");
-            return "index";
+            return "ask";
         }
         if (tag == null || tag == "") {
             model.addAttribute("error1", "标签不能为空");
-            return "index";
+            return "ask";
         }
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             model.addAttribute("error1", "用户未登录");
-            return "index";
+            return "ask";
         }
 
         Question question = new Question();
@@ -77,7 +92,8 @@ public class IndexController {
         question.setGmtModified(question.getGmtCreate());
 
         questionMapper.create(question);
-        return "redirect:ask";
+        return "ask";
     }
-
 }
+
+

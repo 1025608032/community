@@ -6,6 +6,11 @@ body{
 #all_header{
 
 }
+
+.buttonMargin{
+    margin:0px 10px 0px 0px;
+}
+
 /*********************头部end*********************/
 /*********************主体begin*********************/
 .main{
@@ -57,6 +62,15 @@ body{
 .btn-publish {
     float: right;
     margin-bottom: 15px;
+}
+.media-object {
+    width: 200px;
+    height: 200px;
+}
+.text-desc {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
 }
 /**************************论坛end**************************/
 

@@ -28,21 +28,23 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 [lombok](https://www.projectlombok.org/)
 
 ##开发日志
-+ 2020/2/14安装IDEA、Maven、Bootstrap4、Git。
++ 2020/2/14安装IDEA、Maven、Bootstrap4、Git。  
 
-+ 2020/2/16 初始化Github仓库，初次使用Spring Boot、Git。
++ 2020/2/16 初始化Github仓库，初次使用Spring Boot、Git。  
 
-+ 2020/2/18 项目需求分析，主页页面划分，练习Bootstrap4。
++ 2020/2/18 项目需求分析，主页页面划分，练习Bootstrap4。  
 
-+ 2020/2/22 编写导航栏，使用Github App实现第三方登录功能，用session记录当前登录态。
++ 2020/2/22 编写导航栏，使用Github App实现第三方登录功能，用session记录当前登录态。  
 
-+ 2020/2/23 嵌入H2数据库，实现登录态。
++ 2020/2/23 嵌入H2数据库，实现登录态。  
 
 + 2020/2/29 添加flyway migration，管理sql脚本。  
 
-+ 2020/3/2 添加问题发布模态框和登录模态框，提交服务层出现问题。
++ 2020/3/2 添加问题发布模态框和登录模态框，提交服务层出现问题。  
 
-+ 20203/3 添加Lombok支持，添加头像脚本。完成问题发布功能。
++ 2020/3/3 添加Lombok支持，添加头像脚本。完成问题发布功能。  
+
++ 2020/3/14 添加问题列表页面分页功能。  
 
 ##脚本
 + git查看、添加至暂存、提交到本地仓库、上传到远端命令
@@ -51,6 +53,7 @@ git status
 git add .
 git commit -m "本次操作内容简介"
 git push
+$ git config autocrlf false
 ```
 + flyway迁移数据库命令
 ```shell script
