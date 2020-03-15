@@ -46,6 +46,8 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 
 + 2020/3/14 添加问题列表页面分页功能。  
 
++ 20203/15 添加导航片段
+
 ##脚本
 + git查看、添加至暂存、提交到本地仓库、上传到远端命令
 ```shell script
@@ -53,7 +55,8 @@ git status
 git add .
 git commit -m "本次操作内容简介"
 git push
-$ git config autocrlf false
+git config autocrlf false
+git commit --amend
 ```
 + flyway迁移数据库命令
 ```shell script

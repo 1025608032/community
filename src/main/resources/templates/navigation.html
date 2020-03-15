@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
+
+<body>
+<dav th:fragment="nav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/index">文化沙龙</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/ask">问答<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">文章</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">沙龙</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        资料
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <a class="dropdown-item" href="#">书籍</a>
+                        <a class="dropdown-item" href="#">影视</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search"
+                           aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary buttonMargin" type="submit">搜索</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item" th:if="${session.user!=null}">
+                <!----------------------- “提问”按钮 ----------------------->
+                <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal"
+                        data-target="#exampleModal">
+                    提问
+                </button>
+                <!----------------------- “写文章”按钮 ----------------------->
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">写文章</button>
+            </li>
+        </ul>
+
+        <!----------------------- “提问”模态 ----------------------->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><span class="zi zi_plus"
+                                                                             aria-hidden="true"></span>提问</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/index" method="post">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="title" name="title"
+                                       th:value="${title}"
+                                       placeholder="问题标题,一句话描述问题">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="tag" name="tag"
+                                       th:value="${tag}"
+                                       placeholder="输入标签，以，号分隔">
+                            </div>
+                            <div class="form-group">
+                                <label for="description">问题描述:</label>
+                                <textarea class="form-control" cols="30" id="description" name="description"
+                                          th:text="${description}"
+                                          rows="10"></textarea>
+                            </div>
+                            <div class="form-group alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                 th:text="${error1}"
+                                 th:if="${error1 != null}">
+                            </div>
+                            <div class="form-group ">
+                                <button type="submit"
+                                        class="btn btn-success btn-publish col-lg-12 col-md-12 col-sm-12 col-xs-12">提交问题
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!----------------------- 登录/用户按钮 ----------------------->
+        <ul class="navbar-nav justify-content-end">
+            <li class="nav-item" th:if="${session.user==null}">
+                <a class="nav-link" data-toggle="modal" data-target="#loginModal">
+                    登录/注册
+                </a>
+                <!-- Modal -->
+                <div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <form action="/index" method="post">
+                                <div class="modal-header form-group">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">登录/注册</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body form-group">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">账号</span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="输入您的账号"
+                                               aria-label="Username" aria-describedby="basic-addon1">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">密码</span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="输入您的密码"
+                                               aria-label="Password" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+                                <div class="modal-footer form-group">
+                                    <div class="form-group alert alert-danger col-lg-7 col-md-7 col-sm-7 col-xs-7"
+                                         th:text="${error2}"
+                                         th:if="${error2 != null}">
+                                    </div>
+                                    <a href="https://github.com/login/oauth/authorize?client_id=20e76e5214c79bc4a3aa&redirect_uri=http://localhost:8887/login&scope=use&state=1r">
+                                        <button type="button" class="btn btn-primary">
+                                            登录
+                                        </button>
+                                    </a>
+                                    <a href="">
+                                        <button type="button" class="btn btn-secondary">
+                                            注册
+                                        </button>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item dropdown" th:if="${session.user!=null}">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                   th:text="${session.user.getName()}">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                    <a class="dropdown-item" href="#">消息中心</a>
+                    <a class="dropdown-item" href="#">个人资料</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">退出登录</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</dav>
+</body>
+</html>
