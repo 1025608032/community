@@ -1,7 +1,6 @@
 package com.salon.community.controller;
 
 import com.salon.community.mapper.QuestionMapper;
-import com.salon.community.mapper.UserMapper;
 import com.salon.community.model.Question;
 import com.salon.community.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,30 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class IndexController {
     @Autowired
     private QuestionMapper questionMapper;
-    @Autowired
-    private UserMapper userMapper;
 
     @GetMapping("/index")
     public String index(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (null != cookies && cookies.length != 0)
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    User user = userMapper.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
         return "index";
     }
 

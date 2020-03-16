@@ -2,7 +2,6 @@ package com.salon.community.controller;
 
 import com.salon.community.dto.PaginationDTO;
 import com.salon.community.mapper.QuestionMapper;
-import com.salon.community.mapper.UserMapper;
 import com.salon.community.model.Question;
 import com.salon.community.model.User;
 import com.salon.community.service.QuestionService;
@@ -13,14 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class AskController {
-
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private QuestionMapper questionMapper;
@@ -29,22 +24,10 @@ public class AskController {
     private QuestionService questionService;
 
     @GetMapping("/ask")
-    public String ask(HttpServletRequest request,
+    public String ask(
                       Model model,
                       @RequestParam(name = "page", defaultValue = "1") Integer page,
                       @RequestParam(name = "size", defaultValue = "5") Integer size) {
-        Cookie[] cookies = request.getCookies();
-        if (null != cookies && cookies.length != 0)
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    User user = userMapper.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
         PaginationDTO pagination = questionService.list(page, size);
         model.addAttribute("pagination", pagination);
         return "ask";
@@ -56,9 +39,6 @@ public class AskController {
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
             HttpServletRequest request,
-
-
-
             Model model) {
         model.addAttribute("title", title);
         model.addAttribute("description", description);
