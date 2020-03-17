@@ -50,6 +50,8 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 
 + 2020/3/16 个人中心页面，问题详情页面，拦截器
 
++ 2020/3/17 解决提问模态框刷新问题，修复登录问题
+
 ##脚本
 + git查看、添加至暂存、提交到本地仓库、上传到远端命令
 ```shell script

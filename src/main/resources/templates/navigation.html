@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="zh-cn">
 
 <body>
 <dav th:fragment="nav">
@@ -46,10 +46,16 @@
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item" th:if="${session.user!=null}">
+                <script th:inline="javascript">
+                    var error1 = [[${error1}]];
+                    $(document).ready(function () {
+                        if(error1!=null)
+                        $("#askButton").trigger("click");
+                    });
+                </script>
                 <!----------------------- “提问”按钮 ----------------------->
-                <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal"
-                        data-target="#exampleModal">
-                    提问
+                <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="askButton" data-toggle="modal"
+                        data-target="#askModal">提问
                 </button>
                 <!----------------------- “写文章”按钮 ----------------------->
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">写文章</button>
@@ -57,7 +63,7 @@
         </ul>
 
         <!----------------------- “提问”模态 ----------------------->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="askModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
                 <div class="modal-content">
@@ -69,7 +75,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/index" method="post">
+                        <form action="/index" method="post" id="form-add">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="title" name="title"
                                        th:value="${title}"
@@ -165,7 +171,7 @@
                     <a class="dropdown-item" href="/profile/">个人中心</a>
                     <a class="dropdown-item" href="#">消息中心</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">退出登录</a>
+                    <a class="dropdown-item" href="/logout">退出登录</a>
                 </div>
             </li>
         </ul>
