@@ -22,10 +22,11 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 ## 工具
 [Maven](https://maven.apache.org/download.cgi)  
 [Git](https://git-scm.com/)  
-[visual-paradigm](https://www.visual-paradigm.com/cn/)  
-[zico](http://ico.z01.com/)  
-[flyway](https://flywaydb.org/getstarted/firststeps/maven)  
-[lombok](https://www.projectlombok.org/)
+[Visual-paradigm](https://www.visual-paradigm.com/cn/)  
+[Zico](http://ico.z01.com/)  
+[Flyway](https://flywaydb.org/getstarted/firststeps/maven)  
+[Lombok](https://www.projectlombok.org/)  
+[MyBatis Generator](http://mybatis.org/generator/running/runningWithMaven.html)
 
 ##开发日志
 + 2020/2/14安装IDEA、Maven、Bootstrap4、Git。  
@@ -68,5 +69,10 @@ git commit --amend
 ```shell script
 mvn flyway:migrate  
 ```
++ MyBatis Generator将参数传递给目标
+```shell script
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+```
+
 
 
