@@ -1,7 +1,6 @@
 package com.salon.community.controller;
 
 import com.salon.community.dto.PaginationDTO;
-import com.salon.community.mapper.QuestionMapper;
 import com.salon.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AskController {
-
-    @Autowired
-    private QuestionMapper questionMapper;
 
     @Autowired
     private QuestionService questionService;

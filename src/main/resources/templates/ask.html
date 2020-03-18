@@ -43,7 +43,7 @@
             <hr>
 
             <div class="media" th:each="question : ${pagination.questions}">
-                <img class="mr-3 media-object rounded" th:src="${question.user.avatarUrl}">
+<!--                <img class="mr-3 media-object rounded" th:src="${question.user.avatarUrl}">-->
                 <div class="media-body">
                     <h4 class="media-heading">
                         <a th:href="@{'/question/'+ ${question.id}}" th:text="${question.title}"></a>

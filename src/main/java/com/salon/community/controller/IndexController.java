@@ -3,6 +3,7 @@ package com.salon.community.controller;
 import com.salon.community.mapper.QuestionMapper;
 import com.salon.community.model.Question;
 import com.salon.community.model.User;
+import com.salon.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class IndexController {
     @Autowired
-    private QuestionMapper questionMapper;
+    private QuestionService questionService;
 
     @GetMapping("/index")
     public String index(HttpServletRequest request) {
@@ -25,6 +26,7 @@ public class IndexController {
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
+            @RequestParam(value = "id", required = false) Integer id,
             HttpServletRequest request,
             Model model) {
         model.addAttribute("title", title);
@@ -55,10 +57,9 @@ public class IndexController {
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-        question.setGmtCreate(System.currentTimeMillis());
-        question.setGmtModified(question.getGmtCreate());
+        question.setId(id);
+        questionService.createOrUpdate(question);
 
-        questionMapper.create(question);
         return "redirect:ask";
     }
 

@@ -76,6 +76,7 @@
                     </div>
                     <div class="modal-body">
                         <form action="/index" method="post" id="form-add">
+                            <input type="hidden" name="id" th:value="${id}">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="title" name="title"
                                        th:value="${title}"
