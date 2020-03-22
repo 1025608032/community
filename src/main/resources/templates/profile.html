@@ -61,7 +61,7 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2>主栏</h2>
             <div class="media" th:each="question : ${pagination.questions}">
-                <img class="mr-3 media-object rounded" th:src="${question.user.avatarUrl}">
+                <img th:src="${question.user.avatarUrl}" class="mr-3 media-object rounded">
                 <div class="media-body">
                     <h4 class="media-heading" th:text="${question.title}"></h4>
                     <span class="text-desc"><span
