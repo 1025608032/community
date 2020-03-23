@@ -49,9 +49,9 @@
         <ul class="navbar-nav">
             <li class="nav-item" th:if="${session.user!=null}">
                 <script th:inline="javascript">
-                    var error = [[${error}]];
+                    var error1 = [[${error1}]];
                     $(document).ready(function () {
-                        if(error!=null)
+                        if(error1!=null)
                         $("#askButton").trigger("click");
                     });
                 </script>
@@ -96,8 +96,8 @@
                                           rows="10"></textarea>
                             </div>
                             <div class="form-group alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"
-                                 th:text="${error}"
-                                 th:if="${error != null}">
+                                 th:text="${error1}"
+                                 th:if="${error1 != null}">
                             </div>
                             <div class="form-group ">
                                 <button type="submit"

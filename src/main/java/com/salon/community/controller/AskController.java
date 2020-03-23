@@ -57,20 +57,20 @@ public class AskController {
         model.addAttribute("question", questionDTO);
 
         if (title == null || title == "") {
-            model.addAttribute("error", "标题不能为空");
+            model.addAttribute("error1", "标题不能为空");
             return "ask";
         }
         if (tag == null || tag == "") {
-            model.addAttribute("error", "标签不能为空");
+            model.addAttribute("error1", "标签不能为空");
             return "ask";
         }
         if (description == null || description == "") {
-            model.addAttribute("error", "问题补充不能为空");
+            model.addAttribute("error1", "问题补充不能为空");
             return "ask";
         }
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
-            model.addAttribute("error", "用户未登录");
+            model.addAttribute("error1", "用户未登录");
             return "ask";
         }
 
@@ -82,7 +82,6 @@ public class AskController {
         questionService.createOrUpdate(question);
         return "redirect:/ask/{id}";
     }
-
 }
 
 
