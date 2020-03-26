@@ -77,8 +77,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/ask" method="post" id="form-add">
-                            <input type="hidden" name="id" th:value="${id}">
+                        <form th:action="@{'/ask'}" method="post" id="form-add">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="title" name="title"
                                        th:value="${title}"

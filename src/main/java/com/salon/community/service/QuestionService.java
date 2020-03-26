@@ -2,6 +2,7 @@ package com.salon.community.service;
 
 import com.salon.community.dto.QuestionDTO;
 import com.salon.community.dto.PaginationDTO;
+import com.salon.community.mapper.QuestionExtMapper;
 import com.salon.community.mapper.QuestionMapper;
 import com.salon.community.mapper.UserMapper;
 import com.salon.community.model.Question;
@@ -22,6 +23,9 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     public PaginationDTO list(Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
@@ -129,5 +133,12 @@ public class QuestionService {
                     .andIdEqualTo(question.getId());
             questionMapper.updateByExampleSelective(updateQuestion, example);
         }
+    }
+
+    public void incView(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        questionExtMapper.incView(question);
     }
 }

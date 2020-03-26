@@ -24,7 +24,8 @@ public class AskController {
     @GetMapping("/ask")
     public String index(Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
-                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
+                        @RequestParam(name = "size", defaultValue = "5") Integer size
+                        ) {
         PaginationDTO pagination = questionService.list(page, size);
         model.addAttribute("pagination", pagination);
         return "ask";
@@ -32,53 +33,89 @@ public class AskController {
 
     @GetMapping("/ask/{id}")
     public String question(@PathVariable(name = "id") Integer id,
-                           @RequestParam(value = "title", required = false) String title,
-                           @RequestParam(value = "description", required = false) String description,
-                           @RequestParam(value = "tag", required = false) String tag,
                            Model model) {
         QuestionDTO question = questionService.getById(id);
+        //累加阅读数
+        questionService.incView(id);
         model.addAttribute("question", question);
         model.addAttribute("id", question.getId());
         return "ask";
     }
 
-    @PostMapping(value = {"ask", "/ask/{id}"})
-    public String doQuestionEdit(@PathVariable(name = "id") Integer id,
-                                 @RequestParam(value = "title", required = false) String title,
-                                 @RequestParam(value = "description", required = false) String description,
-                                 @RequestParam(value = "tag", required = false) String tag,
-                                 HttpServletRequest request,
-                                 Model model) {
+    @PostMapping("/ask")
+    public String doQuestionCreate(@RequestParam(value = "title", required = false) String title,
+                                   @RequestParam(value = "description", required = false) String description,
+                                   @RequestParam(value = "tag", required = false) String tag,
+                                   HttpServletRequest request,
+                                   Model model){
         model.addAttribute("title", title);
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);
+
+
+        if (title == null || title == "") {
+            model.addAttribute("error1", "标题不能为空");
+            return "index";
+        }
+        if (tag == null || tag == "") {
+            model.addAttribute("error1", "标签不能为空");
+            return "index";
+        }
+        if (description == null || description == "") {
+            model.addAttribute("error1", "问题补充不能为空");
+            return "index";
+        }
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            model.addAttribute("error1", "用户未登录");
+            return "index";
+        }
+
+
+        Question question = new Question();
+        question.setTitle(title);
+        question.setDescription(description);
+        question.setTag(tag);
+        question.setCreator(user.getId());
+        questionService.createOrUpdate(question);
+        return "redirect:/ask";
+    }
+
+    @PostMapping("/ask/{id}")
+    public String doQuestionEdit(@PathVariable(name = "id") Integer id,
+                                 @RequestParam(value = "Etitle", required = false) String title,
+                                 @RequestParam(value = "Edescription", required = false) String description,
+                                 @RequestParam(value = "Etag", required = false) String tag,
+                                 HttpServletRequest request,
+                                 Model model) {
+        model.addAttribute("Etitle", title);
+        model.addAttribute("Edescription", description);
+        model.addAttribute("Etag", tag);
 
         QuestionDTO questionDTO = questionService.getById(id);
         model.addAttribute("question", questionDTO);
 
         if (title == null || title == "") {
-            model.addAttribute("error1", "标题不能为空");
+            model.addAttribute("Eerror1", "标题不能为空");
             return "ask";
         }
         if (tag == null || tag == "") {
-            model.addAttribute("error1", "标签不能为空");
+            model.addAttribute("Eerror1", "标签不能为空");
             return "ask";
         }
         if (description == null || description == "") {
-            model.addAttribute("error1", "问题补充不能为空");
+            model.addAttribute("Eerror1", "问题补充不能为空");
             return "ask";
         }
+
         User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            model.addAttribute("error1", "用户未登录");
-            return "ask";
-        }
 
         Question question = new Question();
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
         question.setId(id);
+        question.setCreator(user.getId());
         questionService.createOrUpdate(question);
         return "redirect:/ask/{id}";
     }

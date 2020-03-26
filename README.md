@@ -59,6 +59,10 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 
 + 2020/3/23 增加异常页面，修复ask页面image标签取值的bug。
 
++ 2020/3/25 修复创建问题报错异常
+
++ 2020/3/26 添加阅读数
+
 ##脚本
 + git查看、添加至暂存、提交到本地仓库、上传到远端命令
 ```shell script
