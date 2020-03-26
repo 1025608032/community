@@ -26,7 +26,8 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 [Zico](http://ico.z01.com/)  
 [Flyway](https://flywaydb.org/getstarted/firststeps/maven)  
 [Lombok](https://www.projectlombok.org/)  
-[MyBatis Generator](http://mybatis.org/generator/running/runningWithMaven.html)
+[MyBatis Generator](http://mybatis.org/generator/running/runningWithMaven.html)  
+[Postman](https://www.postman.com/)
 
 ##开发日志
 + 2020/2/14安装IDEA、Maven、Bootstrap4、Git。  
@@ -61,7 +62,7 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 
 + 2020/3/25 修复创建问题报错异常
 
-+ 2020/3/26 添加阅读数
++ 2020/3/26 添加阅读数,添加回复功能
 
 ##脚本
 + git查看、添加至暂存、提交到本地仓库、上传到远端命令

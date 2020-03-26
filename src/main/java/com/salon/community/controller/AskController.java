@@ -1,9 +1,12 @@
 package com.salon.community.controller;
 
+import com.salon.community.dto.CommentCreateDTO;
+import com.salon.community.dto.CommentDTO;
 import com.salon.community.dto.PaginationDTO;
 import com.salon.community.dto.QuestionDTO;
 import com.salon.community.model.Question;
 import com.salon.community.model.User;
+import com.salon.community.service.CommentService;
 import com.salon.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class AskController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/ask")
     public String index(Model model,
@@ -32,13 +39,13 @@ public class AskController {
     }
 
     @GetMapping("/ask/{id}")
-    public String question(@PathVariable(name = "id") Integer id,
-                           Model model) {
+    public String question(@PathVariable(name = "id") Long id, Model model) {
         QuestionDTO question = questionService.getById(id);
+        List<CommentDTO> comments = commentService.listByQuestionId(id);
         //累加阅读数
         questionService.incView(id);
         model.addAttribute("question", question);
-        model.addAttribute("id", question.getId());
+        model.addAttribute("comments", comments);
         return "ask";
     }
 
@@ -82,7 +89,7 @@ public class AskController {
     }
 
     @PostMapping("/ask/{id}")
-    public String doQuestionEdit(@PathVariable(name = "id") Integer id,
+    public String doQuestionEdit(@PathVariable(name = "id") Long id,
                                  @RequestParam(value = "Etitle", required = false) String title,
                                  @RequestParam(value = "Edescription", required = false) String description,
                                  @RequestParam(value = "Etag", required = false) String tag,

@@ -35,15 +35,13 @@
 <!------------------------------------------头部end------------------------------------------>
 <!------------------------------------------主体begin------------------------------------------>
 <!--------------------------------巨幕-------------------------------->
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">抱歉，你访问的页面不存在！</h1>
-        <p class="lead">可能是因为你的链接网址有误，或页面被删除</p>
-        <hr class="my-4">
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/index" role="button">回到社区首页</a>
-        </p>
-    </div>
+<div class="jumbotron">
+    <h1 class="display-4">抱歉，你访问的页面不存在！</h1>
+    <p th:text="${message}" class="lead">可能是因为你的链接网址有误，或页面被删除</p>
+    <hr class="my-4">
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/index" role="button">回到社区首页</a>
+    </p>
 </div>
 <!------------------------------------------主体end------------------------------------------>
 </body>

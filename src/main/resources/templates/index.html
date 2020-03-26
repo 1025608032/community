@@ -28,6 +28,15 @@
             crossorigin="anonymous"></script>
 
 </head>
+<script type="application/javascript">
+    window.onload = function () {
+        var closable = window.localStorage.getItem("closable");
+        if (closable == "true") {
+            window.close();
+            window.localStorage.removeItem("closable");
+        }
+    }
+</script>
 <body>
 <!------------------------------------------头部begin------------------------------------------>
 <!--------------------------------导航-------------------------------->

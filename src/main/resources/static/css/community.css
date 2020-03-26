@@ -79,13 +79,17 @@ body{
 /**************************沙龙begin**************************/
 
 /**************************沙龙end**************************/
-
+.jumbotron {
+    margin: 50px;
+}
 
 
 /**************************资料begin**************************/
 
 /**************************资料end**************************/
-
+.media-body {
+    padding-top: 10px;
+}
 
 /**************************个人中心begin**************************/
 .profile .section {
@@ -94,8 +98,44 @@ body{
 /**************************个人中心end**************************/
 
 /**************************问题详情begin**************************/
+.comment {
+    margin: 10px 0;
+}
+
+.btn-comment {
+    float: right;
+    margin-bottom: 10px;
+}
+
 .community-menu {
+    display: block;
     color: #999;
     font-size: 13px;
+    margin-bottom: 15px;
+}
+
+.comments {
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.comment-sp {
+    margin-top: 0;
+}
+
+.menu {
+    color: #999;
+    margin-top: 5px;
+}
+
+.menu .zi {
+    margin-right: 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.menu .zi:hover {
+    color: #499ef3;
 }
 /**************************问题详情end**************************/
