@@ -63,7 +63,7 @@
             <div class="media" th:each="question : ${pagination.questions}">
                 <img th:src="${question.user.avatarUrl}" class="mr-3 media-object rounded">
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <h4 class="mr-0" th:text="${question.title}"></h4>
                     <span class="text-desc"><span
                             th:text="${question.commentCount}"></span> 个回复 • <span
                             th:text="${question.viewCount}"></span> 次浏览 • <span

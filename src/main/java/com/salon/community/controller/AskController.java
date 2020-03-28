@@ -4,6 +4,7 @@ import com.salon.community.dto.CommentCreateDTO;
 import com.salon.community.dto.CommentDTO;
 import com.salon.community.dto.PaginationDTO;
 import com.salon.community.dto.QuestionDTO;
+import com.salon.community.enums.CommentTypeEnum;
 import com.salon.community.model.Question;
 import com.salon.community.model.User;
 import com.salon.community.service.CommentService;
@@ -41,7 +42,7 @@ public class AskController {
     @GetMapping("/ask/{id}")
     public String question(@PathVariable(name = "id") Long id, Model model) {
         QuestionDTO question = questionService.getById(id);
-        List<CommentDTO> comments = commentService.listByQuestionId(id);
+        List<CommentDTO> comments = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         //累加阅读数
         questionService.incView(id);
         model.addAttribute("question", question);
