@@ -1,6 +1,5 @@
 package com.salon.community.controller;
 
-import com.salon.community.dto.CommentCreateDTO;
 import com.salon.community.dto.CommentDTO;
 import com.salon.community.dto.PaginationDTO;
 import com.salon.community.dto.QuestionDTO;
@@ -42,11 +41,14 @@ public class AskController {
     @GetMapping("/ask/{id}")
     public String question(@PathVariable(name = "id") Long id, Model model) {
         QuestionDTO question = questionService.getById(id);
+        List<QuestionDTO> relatedQuestions = questionService.selectRelated(question);
         List<CommentDTO> comments = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         //累加阅读数
         questionService.incView(id);
         model.addAttribute("question", question);
+        model.addAttribute("id", question.getId());
         model.addAttribute("comments", comments);
+        model.addAttribute("relatedQuestions", relatedQuestions);
         return "ask";
     }
 
@@ -60,7 +62,6 @@ public class AskController {
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);
 
-
         if (title == null || title == "") {
             model.addAttribute("error1", "标题不能为空");
             return "index";
@@ -70,7 +71,7 @@ public class AskController {
             return "index";
         }
         if (description == null || description == "") {
-            model.addAttribute("error1", "问题补充不能为空");
+            model.addAttribute("error1", "问题描述不能为空");
             return "index";
         }
         User user = (User) request.getSession().getAttribute("user");
@@ -79,12 +80,12 @@ public class AskController {
             return "index";
         }
 
-
         Question question = new Question();
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
+        //question.setId(null);
         questionService.createOrUpdate(question);
         return "redirect:/ask";
     }
@@ -112,7 +113,7 @@ public class AskController {
             return "ask";
         }
         if (description == null || description == "") {
-            model.addAttribute("Eerror1", "问题补充不能为空");
+            model.addAttribute("Eerror1", "问题描述不能为空");
             return "ask";
         }
 
