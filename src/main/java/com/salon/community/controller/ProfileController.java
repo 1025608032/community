@@ -1,5 +1,6 @@
 package com.salon.community.controller;
 
+import com.salon.community.cache.TagCache;
 import com.salon.community.dto.PaginationDTO;
 import com.salon.community.model.User;
 import com.salon.community.service.QuestionService;
@@ -29,6 +30,7 @@ public class ProfileController {
         model.addAttribute("section", "home");
         PaginationDTO paginationDTO = questionService.list(user.getId(), page, size);
         model.addAttribute("pagination", paginationDTO);
+        model.addAttribute("tags", TagCache.get());
         return "profile";
     }
 

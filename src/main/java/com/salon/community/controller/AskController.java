@@ -1,5 +1,6 @@
 package com.salon.community.controller;
 
+import com.salon.community.cache.TagCache;
 import com.salon.community.dto.CommentDTO;
 import com.salon.community.dto.PaginationDTO;
 import com.salon.community.dto.QuestionDTO;
@@ -8,6 +9,7 @@ import com.salon.community.model.Question;
 import com.salon.community.model.User;
 import com.salon.community.service.CommentService;
 import com.salon.community.service.QuestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +37,7 @@ public class AskController {
                         ) {
         PaginationDTO pagination = questionService.list(page, size);
         model.addAttribute("pagination", pagination);
+        model.addAttribute("tags", TagCache.get());
         return "ask";
     }
 
@@ -46,48 +49,10 @@ public class AskController {
         //累加阅读数
         questionService.incView(id);
         model.addAttribute("question", question);
-        model.addAttribute("id", question.getId());
         model.addAttribute("comments", comments);
         model.addAttribute("relatedQuestions", relatedQuestions);
+        model.addAttribute("tags", TagCache.get());
         return "ask";
-    }
-
-    @PostMapping("/ask")
-    public String doQuestionCreate(@RequestParam(value = "title", required = false) String title,
-                                   @RequestParam(value = "description", required = false) String description,
-                                   @RequestParam(value = "tag", required = false) String tag,
-                                   HttpServletRequest request,
-                                   Model model){
-        model.addAttribute("title", title);
-        model.addAttribute("description", description);
-        model.addAttribute("tag", tag);
-
-        if (title == null || title == "") {
-            model.addAttribute("error1", "标题不能为空");
-            return "index";
-        }
-        if (tag == null || tag == "") {
-            model.addAttribute("error1", "标签不能为空");
-            return "index";
-        }
-        if (description == null || description == "") {
-            model.addAttribute("error1", "问题描述不能为空");
-            return "index";
-        }
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            model.addAttribute("error1", "用户未登录");
-            return "index";
-        }
-
-        Question question = new Question();
-        question.setTitle(title);
-        question.setDescription(description);
-        question.setTag(tag);
-        question.setCreator(user.getId());
-        //question.setId(null);
-        questionService.createOrUpdate(question);
-        return "redirect:/ask";
     }
 
     @PostMapping("/ask/{id}")
@@ -114,6 +79,11 @@ public class AskController {
         }
         if (description == null || description == "") {
             model.addAttribute("Eerror1", "问题描述不能为空");
+            return "ask";
+        }
+        String invalid = TagCache.filterInvalid(tag);
+        if (StringUtils.isNotBlank(invalid)) {
+            model.addAttribute("Eerror1", "输入非法标签:" + invalid);
             return "ask";
         }
 

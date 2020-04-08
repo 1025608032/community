@@ -70,16 +70,16 @@ function collapseComments(e) {
             $.getJSON("/comment/" + id, function (data) {
                 $.each(data.data.reverse(), function (index, comment) {
                     var mediaLeftElement = $("<div/>", {
-                        "class": "media-left"
+                        "class": "media"
                     }).append($("<img/>", {
-                        "class": "media-object img-rounded",
+                        "class": "mr-3 media-object rounded",
                         "src": comment.user.avatarUrl
                     }));
 
                     var mediaBodyElement = $("<div/>", {
                         "class": "media-body"
                     }).append($("<h5/>", {
-                        "class": "media-heading",
+                        "class": "mr-0",
                         "html": comment.user.name
                     })).append($("<div/>", {
                         "html": comment.content
@@ -106,6 +106,38 @@ function collapseComments(e) {
                 e.setAttribute("data-collapse", "show");
                 e.classList.add("active");
             });
+        }
+    }
+}
+
+function showSelectTag1() {
+    $("#select-tag1").show();
+}
+
+function showSelectTag2() {
+    $("#select-tag2").show();
+}
+
+function selectTag1(e) {
+    var value = e.getAttribute("data-tag");
+    var previous = $("#tag").val();
+    if (previous.indexOf(value) == -1) {
+        if (previous) {
+            $("#tag").val(previous + ',' + value);
+        } else {
+            $("#tag").val(value);
+        }
+    }
+}
+
+function selectTag2(e) {
+    var value = e.getAttribute("data-tag");
+    var previous = $("#Etag").val();
+    if (previous.indexOf(value) == -1) {
+        if (previous) {
+            $("#Etag").val(previous + ',' + value);
+        } else {
+            $("#Etag").val(value);
         }
     }
 }

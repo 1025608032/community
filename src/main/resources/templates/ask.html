@@ -132,7 +132,8 @@
                 <!----------------标签--------------->
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <span class="badge badge-pill badge-info question-tag" th:each="tag : ${question.tag.split(',')}">
+                        <span class="badge badge-pill badge-info question-tag"
+                              th:each="tag : ${question.tag.split(',')}">
                             <span class="zi zi_tags"></span>
                             <span class="badge badge-pill badge-info" th:text="${tag}"></span>
                         </span>
@@ -161,12 +162,42 @@
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="Etitle" name="Etitle"
                                            th:value="${Etitle}"
+                                           autocomplete="off"
                                            placeholder="问题标题,一句话描述问题">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="Etag" name="Etag"
                                            th:value="${Etag}"
-                                           placeholder="输入标签，以，号分隔">
+                                           autocomplete="off"
+                                           placeholder="输入标签，以，号分隔"
+                                           onclick="showSelectTag2()">
+                                    <div id="select-tag2" class="publish-tag-tab">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" th:each="selectCategory,selectCategoryStat: ${tags}"
+                                                th:class="${selectCategoryStat.first ? 'active':''}">
+                                                <a class="nav-link" th:href="${'#'+selectCategory.categoryName}+'2'"
+                                                   aria-controls="home" role="tab"
+                                                   data-toggle="tab" th:text="${selectCategory.categoryName}"></a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel"
+                                                 th:id="${selectCategory.categoryName}+'2'"
+                                                 th:each="selectCategory: ${tags}"
+                                                 th:class="${selectCategoryStat.first ? 'active tab-pane fade':'tab-pane fade'}">
+
+                                                <span>
+                                                    <span class="label label-info"
+                                                          th:each="selectTag: ${selectCategory.tags}">
+                                                        <span class="zi zi_tags" onclick="selectTag2(this)"
+                                                              th:data-tag="${selectTag}"
+                                                              th:text="${' '+selectTag}">
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="Edescription">问题描述:</label>
@@ -233,6 +264,7 @@
                                 <span class="zi zi_comment"></span>
                                 <span th:text="${comment.commentCount}"></span>
                             </span>
+
                             <span class="float-right" th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd')}"></span>
                         </div>
                         <!---------------------二级评论---------------------->
@@ -270,7 +302,7 @@
                 <h4>相关问题</h4>
                 <ul class="question-related">
                     <li th:each="related : ${relatedQuestions}">
-                        <a th:href="@{'/question/'+ ${related.id}}" th:text="${related.title}"></a>
+                        <a th:href="@{'/ask/'+ ${related.id}}" th:text="${related.title}"></a>
                     </li>
                 </ul>
             </div>
