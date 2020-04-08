@@ -46,7 +46,7 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="zi zi_listSquare" aria-hidden="true"></span> 问答</h2>
             <hr>
-            <div class="media" th:each="question : ${pagination.questions}">
+            <div class="media" th:each="question : ${pagination.data}">
                 <img th:src="${question.user.avatarUrl}" class="mr-3 media-object rounded">
                 <div class="media-body">
                     <h4 class="mt-0">

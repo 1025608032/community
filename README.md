@@ -66,7 +66,9 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 
 + 2020/3/28 添加二级评论功能
 
-+ 2020/4/8 添加标签库
++ 2020/4/5 添加标签库
+
++ 2020/4/8 添加回复通知
 
 ##脚本
 + git查看、添加至暂存、提交到本地仓库、上传到远端命令
