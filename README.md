@@ -70,6 +70,11 @@ MyBatis[MyBatis-Spring-Boot-Starter](https://mybatis.org/spring-boot-starter/myb
 
 + 2020/4/8 添加回复通知
 
++ 2020/4/16 添加文章模块，修复二级评论折叠bug
+
++ 2020/4/19 修复文章回复功能
+
+
 ##脚本
 + git查看、添加至暂存、提交到本地仓库、上传到远端命令
 ```shell script

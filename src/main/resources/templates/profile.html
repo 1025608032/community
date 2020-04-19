@@ -41,7 +41,14 @@
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h2><span th:text="${session.user.getName()}"></span>的个人中心</h2>
+            <div class="media">
+                <img th:src="${session.user.getAvatarUrl()}" class="mr-3 media-object rounded">
+                <div class="media-body">
+                    <p class="mt-0">
+                    <h2><span th:text="${session.user.getName()}"></span>的个人中心</h2>
+                    </p>
+                </div>
+            </div>
             <hr>
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -51,7 +58,7 @@
                     <span class="badge badge-danger" th:text="${session.unreadCount}"></span>
                 </a>
                 <a href="/profile/questions"
-                   th:class="${section == 'questions'}? 'active list-group-item list-group-item-action' : 'list-group-item list-group-item-action'">我的问答</a>
+                   th:class="${section == 'questions'}? 'active list-group-item list-group-item-action' : 'list-group-item list-group-item-action'">我的帖子</a>
                 <a href="/profile/article"
                    th:class="${section == 'article'}? 'active list-group-item list-group-item-action' : 'list-group-item list-group-item-action'">我的文章</a>
                 <a href="/profile/favlist"
@@ -79,7 +86,6 @@
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${section == 'questions'}">
             <div class="media" th:each="question : ${pagination.data}">
-                <img th:src="${question.user.avatarUrl}" class="mr-3 media-object rounded">
                 <div class="media-body">
                     <h4 class="mt-0">
                         <a th:href="@{'/ask/'+${question.id}}" th:text="${question.title}"></a>

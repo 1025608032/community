@@ -38,6 +38,10 @@
         </table>
         <table tableName="notification" domainObjectName="Notification">
         </table>
+        <table tableName="article" domainObjectName="Article">
+        </table>
+        <table tableName="comment2" domainObjectName="Comment2">
+        </table>
 
     </context>
 </generatorConfiguration>

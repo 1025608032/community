@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-cn">
+<head>
+    <title>文章-沙龙社区</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--  引入自定义样式  -->
+    <link rel="stylesheet" th:href="@{/css/community.css}">
+
+
+    <!--  引入zico图标样式  -->
+    <link rel="stylesheet" th:href="@{/css/zico.min.css}">
+
+    <!--  部署bootstrap  -->
+    <!--    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">-->
+    <!--    <script src="../static/js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"-->
+    <!--                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"-->
+    <!--                crossorigin="anonymous"></script>-->
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/js/moment.js}" type="application/javascript"></script>
+    <script th:src="@{/js/community.js}" type="application/javascript"></script>
+
+</head>
+<body style="background-color: #efefef;">
+<!------------------------------------------头部begin------------------------------------------>
+<!--------------------------------导航-------------------------------->
+<div th:insert="~{navigation :: nav}"></div>
+<!------------------------------------------头部end------------------------------------------>
+<!-------------------------------------------主体begin------------------------------------------>
+<div class="container-fluid main" th:if="${id==null}">
+    <div class="row">
+        <!--------------------------------主栏，问题列表-------------------------------->
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2><span class="zi zi_listSquare" aria-hidden="true"></span> 文章</h2>
+            <hr>
+            <div class="media" th:each="article : ${pagination.data}">
+                <img th:src="${article.user.avatarUrl}" class="mr-3 media-object rounded">
+                <div class="media-body">
+                    <h4 class="mt-0">
+                        <a th:href="@{'/article/'+${article.id}}" th:text="${article.title}"></a>
+                    </h4>
+                    <span th:text="${article.description}"></span> <br>
+                    <span class="text-desc"><span th:text="${article.commentCount}"></span> 个回复 • <span
+                            th:text="${article.viewCount}"></span> 次浏览 • <span
+                            th:text="${#dates.format(article.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
+                </div>
+            </div>
+            <!--------------------------------主栏，分页-------------------------------->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item" th:if="${pagination.showFirstPage}">
+                        <a class="page-link" href="/column?page=1" tabindex="-1" aria-label="First">
+                            <span aria-hidden="true">&lt;&lt;</span>
+                            <span class="sr-only">First</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:href="@{/column(page=${pagination.page - 1})}">
+                        <a class="page-link" href="/column?page=1" tabindex="-1" aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li th:each="page : ${pagination.pages}"
+                        th:class="${pagination.page == page}? 'page-item active' : 'page-item'">
+                        <a class="page-link" th:href="@{/column(page=${page})}" th:text="${page}"></a>
+                    </li>
+                    <li class="page-item" th:if="${pagination.showNext}">
+                        <a class="page-link" th:href="@{/column(page=${pagination.page +1 })}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:if="${pagination.showEndPage}">
+                        <a class="page-link" th:href="@{/column(page=${pagination.totalPage})}" aria-label="Last">
+                            <span aria-hidden="true">&gt;&gt;</span>
+                            <span class="sr-only">Last</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!--------------------------------侧栏-------------------------------->
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <h3>热门文章</h3>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid main profile" th:if="${id!=null}">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4 class="article-title"><span th:text="${article.title}"></span></h4>
+                <span class="text-desc">
+                作者：<span th:text="${article.user.name}"></span> |
+                发布时间：<span th:text="${#dates.format(article.gmtCreate,'yyyy-MM-dd HH:mm')}"></span> |
+                阅读数： <span th:text="${article.viewCount}"></span>
+                </span>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a class="community-menu float-right"
+                       id="editA"
+                       th:href="@{'/write'}"
+                       th:if="${session.user != null && session.user.id == article.creator}">
+                        <span class="zi zi_pencilalt" aria-hidden="true"></span>
+                        编辑
+                    </a>
+                </div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                     th:text="${article.description}"></div>
+                <!----------------标签--------------->
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span class="badge badge-pill badge-info article-tag"
+                              th:each="tag : ${article.tag.split(',')}">
+                            <span class="zi zi_tags"></span>
+                            <span class="badge badge-pill badge-info" th:text="${tag}"></span>
+                        </span>
+                </div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            </div>
+
+            <!-----------------------回复---------------------->
+            <h4>
+                <span th:text="${article.commentCount}"></span> 个回复
+            </h4>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comments"
+                 th:each="comment : ${comments}">
+                <div class="media">
+                    <img class="mr-3 media-object img-rounded"
+                         th:src="${comment.user.avatarUrl}">
+                    <div class="media-body" th:id="${'comment-body-'+comment.id}">
+                        <h5 class="mt-0">
+                            <span th:text="${comment.user.name}"></span>
+                        </h5>
+                        <div th:text="${comment.content}"></div>
+                        <div class="menu">
+                            <span class="zi zi_digg"></span>
+                            <span th:data-id="${comment.id}"
+                                  onclick="collapseComments2(this)" class="comment-icon">
+                                <span class="zi zi_comment"></span>
+                                <span th:text="${comment.commentCount}"></span>
+                            </span>
+
+                            <span class="float-right"
+                                  th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>
+                        </div>
+                        <!---------------------二级评论---------------------->
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse sub-comments"
+                             th:id="${'comment-'+comment.id}">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <input type="text" class="form-control" placeholder="评论一下……"
+                                       th:id="${'input-'+comment.id}">
+                                <button type="button" class="btn btn-success float-right"
+                                        onclick="comment2(this)"
+                                        th:data-id="${comment.id}">评论
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--右边信息块-->
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>发起人</h4>
+                <div class="media">
+                    <img class="mr-3 media-object rounded"
+                         th:src="${article.user.avatarUrl}">
+                    <div class="media-body">
+                        <h5 class="mt-0">
+                            <span th:text="${article.user.name}"></span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>相关文章</h4>
+                <ul class="article-related">
+                    <li th:each="related : ${relatedArticles}">
+                        <a th:href="@{'/article/'+ ${related.id}}" th:text="${related.title}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!----------------------回复输入框--------------------->
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4>
+                提交回复
+            </h4>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
+                <div class="media">
+                    <img class="mr-3 media-object rounded"
+                         th:src="${article.user.avatarUrl}">
+                    <div class="media-body">
+                        <h5 class="mr-0">
+                            <span th:text="${session.user != null ? session.user.name : '匿名用户'}"></span>
+                        </h5>
+                        <input type="hidden" id="article_id" th:value="${article.id}">
+                        <textarea class="form-control comment" rows="6"
+                                  id="comment2_content"></textarea>
+                        <button type="button" class="btn btn-success btn-comment"
+                                onclick="post2()">回复
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------主体end------------------------------------------>
+
+<!------------------------------------------尾部begin------------------------------------------>
+<footer id="all_footer">尾部</footer>
+<!------------------------------------------尾部end------------------------------------------>
+</body>
+</html>

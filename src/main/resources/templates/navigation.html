@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="zh-cn">
 
 <body>
-<dav th:fragment="nav">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav th:fragment="nav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
         <a class="navbar-brand" href="/index">文化沙龙</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,10 +13,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/ask">问答<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/ask">贴吧<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">文章</a>
+                    <a class="nav-link" href="/article">文章</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">沙龙</a>
@@ -51,16 +51,19 @@
                 <script th:inline="javascript">
                     var error1 = [[${error1}]];
                     $(document).ready(function () {
-                        if(error1!=null)
-                        $("#askButton").trigger("click");
+                        if (error1 != null)
+                            $("#askButton").trigger("click");
                     });
                 </script>
                 <!----------------------- “提问”按钮 ----------------------->
                 <button type="button" class="btn btn-outline-success my-2 my-sm-0" id="askButton" data-toggle="modal"
-                        data-target="#askModal">提问
+                        data-target="#askModal">发贴
                 </button>
                 <!----------------------- “写文章”按钮 ----------------------->
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">写文章</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                    <a href="/write">写文章
+                    </a>
+                </button>
             </li>
         </ul>
 
@@ -71,7 +74,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel"><span class="zi zi_plus"
-                                                                             aria-hidden="true"></span>提问</h5>
+                                                                             aria-hidden="true"></span>新贴</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -82,7 +85,7 @@
                                 <input type="text" class="form-control" id="title" name="title"
                                        th:value="${title}"
                                        autocomplete="off"
-                                       placeholder="问题标题,一句话描述问题">
+                                       placeholder="请填写标题">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="tag" name="tag"
@@ -118,7 +121,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="description">问题描述:</label>
+                                <label for="description">内容:</label>
                                 <textarea class="form-control" cols="30" id="description" name="description"
                                           th:text="${description}"
                                           rows="10"></textarea>
@@ -129,7 +132,7 @@
                             </div>
                             <div class="form-group ">
                                 <button type="submit"
-                                        class="btn btn-success btn-publish col-lg-12 col-md-12 col-sm-12 col-xs-12">提交问题
+                                        class="btn btn-success btn-publish col-lg-12 col-md-12 col-sm-12 col-xs-12">发表
                                 </button>
                             </div>
                         </form>
@@ -207,6 +210,6 @@
             </li>
         </ul>
     </nav>
-</dav>
+</nav>
 </body>
 </html>

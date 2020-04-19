@@ -4,7 +4,7 @@ import com.salon.community.model.User;
 import lombok.Data;
 
 @Data
-public class QuestionDTO {
+public class ArticleDTO {
     private Long id;
     private String title;
     private String description;
@@ -16,6 +16,4 @@ public class QuestionDTO {
     private Integer commentCount;
     private Integer likeCount;
     private User user;
-
-
 }
