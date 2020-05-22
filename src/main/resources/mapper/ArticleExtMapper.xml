@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.salon.community.mapper.ArticleExtMapper">
     <resultMap id="BaseResultMap" type="com.salon.community.model.Article">
-        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <id column="ID" jdbcType="BIGINT" property="id"/>
         <result column="TITLE" jdbcType="VARCHAR" property="title"/>
         <result column="GMT_CREATE" jdbcType="BIGINT" property="gmtCreate"/>
         <result column="GMT_MODIFIED" jdbcType="BIGINT" property="gmtModified"/>
@@ -11,10 +11,6 @@
         <result column="VIEW_COUNT" jdbcType="INTEGER" property="viewCount"/>
         <result column="LIKE_COUNT" jdbcType="INTEGER" property="likeCount"/>
         <result column="TAG" jdbcType="VARCHAR" property="tag"/>
-    </resultMap>
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.salon.community.model.Article">
-
-        <result column="DESCRIPTION" jdbcType="CLOB" property="description"/>
     </resultMap>
     <update id="incView" parameterType="com.salon.community.model.Article">
     update QUESTION

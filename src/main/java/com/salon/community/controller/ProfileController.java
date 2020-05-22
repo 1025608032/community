@@ -3,6 +3,7 @@ package com.salon.community.controller;
 import com.salon.community.cache.TagCache;
 import com.salon.community.dto.PaginationDTO;
 import com.salon.community.model.User;
+import com.salon.community.service.ArticleService;
 import com.salon.community.service.NotificationService;
 import com.salon.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 public class ProfileController {
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    private ArticleService articleService;
 
     @Autowired
     private NotificationService notificationService;
@@ -42,12 +46,15 @@ public class ProfileController {
             model.addAttribute("section", "replies");
             model.addAttribute("pagination", paginationDTO);
             model.addAttribute("sectionName", "我的消息");
-        } else if ("article".equals(action)) {
-            model.addAttribute("section", "article");
         } else if ("questions".equals(action)) {
             model.addAttribute("section", "questions");
             model.addAttribute("sectionName", "我的提问");
             PaginationDTO paginationDTO = questionService.list(user.getId(), page, size);
+            model.addAttribute("pagination", paginationDTO);
+        } else if ("article".equals(action)) {
+            model.addAttribute("section", "article");
+            model.addAttribute("sectionName", "我的文章");
+            PaginationDTO paginationDTO = articleService.list(user.getId(), page, size);
             model.addAttribute("pagination", paginationDTO);
         } else if ("favlist".equals(action)) {
             model.addAttribute("section", "favlist");

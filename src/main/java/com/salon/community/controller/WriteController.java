@@ -43,15 +43,15 @@ public class WriteController {
     }
 
     @PostMapping("/write")
-    public String doArticleCreate(@RequestParam(value = "title", required = false) String title,
-                                  @RequestParam(value = "description", required = false) String description,
-                                  @RequestParam(value = "tag", required = false) String tag,
+    public String doArticleCreate(@RequestParam(value = "Wtitle", required = false) String title,
+                                  @RequestParam(value = "Wdescription", required = false) String description,
+                                  @RequestParam(value = "Wtag", required = false) String tag,
                                   @RequestParam(value = "id", required = false) Long id,
                                   HttpServletRequest request,
                                   Model model) {
-        model.addAttribute("title", title);
-        model.addAttribute("description", description);
-        model.addAttribute("tag", tag);
+        model.addAttribute("Wtitle", title);
+        model.addAttribute("Wdescription", description);
+        model.addAttribute("Wtag", tag);
         model.addAttribute("tags", TagCache.get());
 
         if (title == null || title == "") {

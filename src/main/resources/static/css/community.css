@@ -1,61 +1,63 @@
 /**************************总样式begin**************************/
-body{
-    background-color: #e2e3e5;
-}
+
 /*********************头部begin*********************/
-#all_header{
+#all_header {
 
 }
 
-.buttonMargin{
-    margin:0px 10px 0px 0px;
+.buttonMargin {
+    margin: 0px 10px 0px 0px;
 }
 
 /*********************头部end*********************/
 /*********************主体begin*********************/
-.main{
+.main {
     background-color: white;
     max-width: 1200px;
     margin: 15px auto;
     padding: 0px 10px;
 }
+
 /*********************主体end*********************/
 /*********************尾部begin*********************/
-#all_footer{
+#all_footer {
     background-color: purple;
 }
+
 /*********************尾部end*********************/
 /**************************总样式end**************************/
 
 
-
 /**************************主页begin**************************/
 /*********************热榜begin*********************/
-#hot{
+#hot {
     background-color: black;
 }
+
 /*********************热榜end*********************/
 /*********************section begin*********************/
-#index_blog{
+#index_blog {
     background-color: orange;
 }
-#index_bbs{
+
+#index_bbs {
     background-color: yellow;
 }
-#index_salon{
+
+#index_salon {
     background-color: green;
 }
-#index_material{
+
+#index_material {
     background-color: blue;
 }
+
 /*********************section end*********************/
 /**************************主页end**************************/
 
 
-
 /**************************博客begin**************************/
 /**************************博客end**************************/
-
 
 
 /**************************论坛begin**************************/
@@ -63,13 +65,14 @@ body{
     float: right;
     margin-bottom: 15px;
 }
+
 .text-desc {
     font-size: 12px;
     font-weight: normal;
     color: #999;
 }
-/**************************论坛end**************************/
 
+/**************************论坛end**************************/
 
 
 /**************************沙龙begin**************************/
@@ -91,10 +94,12 @@ body{
     width: 64px;
     height: 64px;
 }
+
 /**************************个人中心begin**************************/
 .profile .section {
     margin-top: 15px;
 }
+
 /**************************个人中心end**************************/
 
 /**************************问题详情begin**************************/
@@ -155,7 +160,7 @@ body{
     margin-bottom: 15px;
 }
 
-.sub-comments .btn{
+.sub-comments .btn {
     margin: 10px 0;
 }
 
@@ -191,4 +196,54 @@ body{
 .menu .zi:hover {
     color: #499ef3;
 }
+
 /**************************问题详情end**************************/
+
+/**************************注册页面start**************************/
+#register-box {
+    width: 30%;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 15%;
+    padding: 20px 50px;
+    text-align: center;
+    background: #00000085;
+}
+
+#register-box h1{
+    color:#fff
+}
+
+#register-box .form .item{
+    margin-top: 15px;
+}
+
+#register-box .form .item i{
+    font-size: 18px;
+    color:#fff
+}
+
+#register-box .form .item input{
+    width: 180px;
+    border: 0;
+    border-bottom: 2px solid #fff;
+    padding: 5px 10px;
+    font-size: 18px;
+    background: #ffffff00;
+    color:#fff;
+}
+
+#register-box button{
+    margin-top: 15px;
+    width: 180px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    background-image: linear-gradient(to right, #db3125 0%, #578bc3 100%);
+    border: 0;
+    border-radius: 15px;
+}
+
+/**************************注册页面end**************************/
+

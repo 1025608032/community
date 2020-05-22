@@ -42,6 +42,8 @@
         </table>
         <table tableName="comment2" domainObjectName="Comment2">
         </table>
+        <table tableName="keys" domainObjectName="Keys">
+        </table>
 
     </context>
 </generatorConfiguration>

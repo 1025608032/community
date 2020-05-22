@@ -30,6 +30,56 @@
     <script th:src="@{/js/moment.js}" type="application/javascript"></script>
     <script th:src="@{/js/community.js}" type="application/javascript"></script>
 
+    <!--  引入CKEditor富文本编辑器  -->
+    <script th:src="@{/tinymce/tinymce.min.js}"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#Wdescription',
+            //skin:'oxide-dark',
+            language: 'zh_CN',
+            plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount imagetools textpattern help emoticons autosave bdmap indent2em autoresize lineheight formatpainter axupimgs',
+            toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | \
+    styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
+    table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | bdmap indent2em lineheight formatpainter axupimgs',
+            height: 650, //编辑器高度
+            min_height: 400,
+            /*content_css: [ //可设置编辑区内容展示的css，谨慎使用
+                '/static/reset.css',
+                '/static/ax.css',
+                '/static/css.css',
+            ],*/
+            fontsize_formats: '12px 14px 16px 18px 24px 36px 48px 56px 72px',
+            font_formats: '微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;苹果苹方=PingFang SC,Microsoft YaHei,sans-serif;宋体=simsun,serif;仿宋体=FangSong,serif;黑体=SimHei,sans-serif;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;',
+            link_list: [
+                {title: '预置链接1', value: 'http://www.tinymce.com'},
+                {title: '预置链接2', value: 'http://tinymce.ax-z.cn'}
+            ],
+            image_list: [
+                {title: '预置图片1', value: 'https://www.tiny.cloud/images/glyph-tinymce@2x.png'},
+                {title: '预置图片2', value: 'https://www.baidu.com/img/bd_logo1.png'}
+            ],
+            image_class_list: [
+                {title: 'None', value: ''},
+                {title: 'Some class', value: 'class-name'}
+            ],
+            importcss_append: true,
+            //自定义文件选择器的回调内容
+            file_picker_callback: function (callback, value, meta) {
+                if (meta.filetype === 'file') {
+                    callback('https://www.baidu.com/img/bd_logo1.png', {text: 'My text'});
+                }
+                if (meta.filetype === 'image') {
+                    callback('https://www.baidu.com/img/bd_logo1.png', {alt: 'My alt text'});
+                }
+                if (meta.filetype === 'media') {
+                    callback('movie.mp4', {source2: 'alt.ogg', poster: 'https://www.baidu.com/img/bd_logo1.png'});
+                }
+            },
+            autosave_ask_before_unload: false,
+        });
+    </script>
+
+
 </head>
 <body style="background-color: #efefef;">
 <!------------------------------------------头部begin------------------------------------------>
@@ -37,49 +87,42 @@
 <div th:insert="~{navigation :: nav}"></div>
 <!------------------------------------------头部end------------------------------------------>
 <!-------------------------------------------主体begin------------------------------------------>
-<div class="container-fluid">
+<div class="container-fluid main">
     <div class="row">
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h3>问题发起指南</h3>
-            • 问题标题: 请用精简的语言描述您发布的问题，不超过25字 <br>
-            • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料<br>
-            • 选择标签: 选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字<br>
-        </div>
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <h2><span class="zi zi_write" aria-hidden="true"></span> 发起</h2>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <hr>
             <form th:action="@{'/write'}" method="post">
                 <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
-                    <label for="title">文章标题（简单扼要）:</label>
-                    <input type="text" class="form-control" th:value="${title}" id="title" name="title"
+                    <label for="Wtitle">文章标题（简单扼要）:</label>
+                    <input type="text" class="form-control" th:value="${Wtitle}" id="Wtitle" name="Wtitle"
                            placeholder="文章标题……"
                            autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="description">文章补充 (必填，请参照左侧提示):</label>
-                    <textarea name="description" id="description" th:text="${description}" class="form-control"
-                              cols="30"
-                              rows="10"></textarea>
+                    <label for="Wdescription">文章内容 (必填，请参照左侧提示):</label>
+                    <textarea name="Wdescription" id="Wdescription" th:text="${Wdescription}" cols="30"
+                              rows="20"></textarea>
                 </div>
+
                 <div class="form-group">
-                    <label for="Wtag">添加标签:</label>
-                    <input type="text" class="form-control" th:value="${tag}" id="Wtag" name="Wtag"
+                    <input type="text" class="form-control" id="Wtag" name="Wtag"
+                           th:value="${Wtag}"
                            autocomplete="off"
-                           placeholder="输入标签，以，号分隔"
+                           placeholder="输入合法标签，以，号分隔，或选择以下标签"
                            onclick="showSelectTag3()">
                     <div id="select-tag3" class="publish-tag-tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" th:each="selectCategory,selectCategoryStat: ${tags}"
                                 th:class="${selectCategoryStat.first ? 'active':''}">
-                                <a class="nav-link" th:href="${'#'+selectCategory.categoryName}+'2'"
+                                <a class="nav-link" th:href="${'#'+selectCategory.categoryName}+'3'"
                                    aria-controls="home" role="tab"
                                    data-toggle="tab" th:text="${selectCategory.categoryName}"></a>
                             </li>
                         </ul>
                         <div class="tab-content">
                             <div role="tabpanel"
-                                 th:id="${selectCategory.categoryName}+'2'"
+                                 th:id="${selectCategory.categoryName}+'3'"
                                  th:each="selectCategory: ${tags}"
                                  th:class="${selectCategoryStat.first ? 'active tab-pane fade':'tab-pane fade'}">
                                 <span>
@@ -95,6 +138,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">

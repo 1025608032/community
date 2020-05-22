@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>注册-沙龙社区</title>
+    <link rel="stylesheet" href="../static/css/community.css" th:href="@{/css/community.css}">
+    <link rel="stylesheet" href="../static/font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <style type="text/css">
+        /*body {*/
+        /*    background: url("../static/image/3.jpg");*/
+        /*    background-repeat: no-repeat;*/
+        /*    background-size: 100% auto;*/
+        /*}*/
+    </style>
+</head>
+<body th:style="'background:url(/image/3.jpg);background-repeat:no-repeat;background-size: 100% auto;'">
+<div id="register-box">
+    <h1>Culture Salon</h1>
+    <div class="form">
+        <form action="/register">
+            <div class="item">
+                <i class="fa fa-key" aria-hidden="true"></i>
+                <input id="accountId" name="accountId" th:value="${key}" type="text" placeholder="Key">
+            </div>
+            <button type="submit">Start</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

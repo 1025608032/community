@@ -10,7 +10,8 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     COMMENT_NOT_FOUND(2006, "评论不存在"),
     CONTENT_IS_EMPTY(2007, "输入内容不能为空"),
     READ_NOTIFICATION_FAIL(2008, "不能读取他人消息"),
-    NOTIFICATION_NOT_FOUND(2009, "消息不存在"),;
+    NOTIFICATION_NOT_FOUND(2009, "消息不存在"),
+    Key_IS_EMPTY(2010, "邀请码不能为空");
 
     @Override
     public String getMessage() {

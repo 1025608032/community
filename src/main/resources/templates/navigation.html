@@ -19,7 +19,7 @@
                     <a class="nav-link" href="/article">文章</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">沙龙</a>
+                    <a class="nav-link" href="/salon">沙龙</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
@@ -37,13 +37,13 @@
         </div>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search"
+                <form class="input-group" action="/ask" method="get">
+                    <input name="search" type="text" class="form-control" placeholder="Search"
                            aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary buttonMargin" type="submit">搜索</button>
                     </div>
-                </div>
+                </form>
             </li>
         </ul>
         <ul class="navbar-nav">
@@ -180,14 +180,19 @@
                                          th:text="${error2}"
                                          th:if="${error2 != null}">
                                     </div>
-                                    <a href="https://github.com/login/oauth/authorize?client_id=20e76e5214c79bc4a3aa&redirect_uri=http://localhost:8887/login&scope=use&state=1r">
-                                        <button type="button" class="btn btn-primary">
-                                            登录
+                                    <a href="/register">
+                                        <button type="button" class="btn btn-secondary">
+                                            注册
                                         </button>
                                     </a>
                                     <a href="">
                                         <button type="button" class="btn btn-secondary">
-                                            注册
+                                            登录
+                                        </button>
+                                    </a>
+                                    <a href="https://github.com/login/oauth/authorize?client_id=20e76e5214c79bc4a3aa&redirect_uri=http://localhost:8887/login&scope=use&state=1r">
+                                        <button type="button" class="btn btn-primary">
+                                            使用github登录
                                         </button>
                                     </a>
                                 </div>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.salon.community.mapper.KeysExtMapper">
+    <resultMap id="BaseResultMap" type="com.salon.community.model.Keys">
+        <id column="ID" jdbcType="INTEGER" property="id"/>
+        <result column="KEY" jdbcType="VARCHAR" property="key"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.salon.community.model.Keys">
+        <result column="DESCRIPTION" jdbcType="CLOB" property="description"/>
+    </resultMap>
+    <update id="ChangeStatus" parameterType="com.salon.community.model.Keys">
+    update KEYS
+    set
+    STATUS = 1
+    where id = #{id}
+    </update>
+    <select id="selectByKey" parameterType="com.salon.community.model.Keys" resultMap="BaseResultMap">
+        select * from KEYS
+        <where>
+            <if test="key != null">
+                and key == #{key}
+            </if>
+        </where>
+    </select>
+</mapper>

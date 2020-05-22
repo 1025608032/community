@@ -76,6 +76,7 @@ public class Comment2Service {
             if (article == null) {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
+            comment2.setCommentCount(0);
             comment2Mapper.insert(comment2);
             article.setCommentCount(1);
             articleExtMapper.incCommentCount(article);
@@ -85,6 +86,9 @@ public class Comment2Service {
     }
 
     private void createNotify(Comment2 comment2, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
+        if(receiver==comment2.getCommentator()){
+            return;
+        }
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         notification.setType(notificationType.getType());
